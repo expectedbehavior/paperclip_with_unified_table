@@ -3,13 +3,12 @@ module ActiveRecord
     module ClassMethods
       alias :ar_has_one :has_one
       def has_one(association_id, options = {})
-#         puts "has one override"
         ares_return_value = ar_has_one(association_id, options)
         self.unify_attachments(association_id) if options[:class_name] == "UnifiedUpload"
         ares_return_value
       end
       
-      def has_iphone_upload(association_id, options = {})
+      def has_unified_attachment(association_id, options = {})
         default_options = { 
           :as => :uploadable,
           :class_name => "UnifiedUpload",
