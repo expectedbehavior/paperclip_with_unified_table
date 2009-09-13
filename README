@@ -1,0 +1,30 @@
+PaperclipWithUnifiedTable
+=========================
+
+Introduction goes here.
+
+
+Example
+=======
+
+# should have the default table name be configurable
+# don't really need to namespace the 'flavor' column; it's already polymorphic
+# don't need to override has_one since we just made our own pretty method
+# auto-generate the migration for the One True Table
+
+    create_table :unified_uploads do |t|
+      t.string  :uploadable_type
+      t.integer :uploadable_id
+      t.string  :flavor
+      t.string  :content_file_name
+      t.string  :content_content_type
+      t.string  :content_file_size
+      t.string  :content_updated_at
+      t.timestamps
+    end
+
+
+Example goes here.
+
+
+Copyright (c) 2009 [name of plugin creator], released under the MIT license
