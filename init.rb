@@ -4,11 +4,12 @@ module UnifiedAttachmentAssociationMethods
   end
   
   def has_one_unified_attachment(association_id, options = {})
+    flavor = self.generate_flavor(association_id)
     default_options = { 
       :as          => :uploadable,
       :class_name  => "UnifiedUpload",
       :foreign_key => "uploadable_id", 
-      :conditions  => {:flavor => self.generate_flavor(association_id)}          
+      :conditions  => {:flavor => flavor}          
     }
 
     # gotta dupe before we merge conditions
@@ -57,25 +58,26 @@ module UnifiedAttachmentAssociationMethods
   end
   
   def unify_has_one_attachments(association_id)
+    flavor = self.generate_flavor(association_id)
     module_eval do 
       alias :"ar_#{association_id}=" :"#{association_id}="
       alias :"ar_build_#{association_id}" :"build_#{association_id}"
     end
       
     define_method("#{association_id}=") do |*params|
-      params.first.flavor = self.generate_flavor(association_id)
+      params.first.flavor = flavor
       self.send("ar_#{association_id}=", *params)
     end
       
     define_method("build_#{association_id}") do |*params|
       params << {} unless params.first
-      params.first[:flavor] = self.generate_flavor(association_id)
+      params.first[:flavor] = flavor
       self.send("ar_build_#{association_id}", *params)
     end
     
     define_method("create_#{association_id}") do |*params|
       params << {} unless params.first
-      params.first[:flavor] = self.generate_flavor(association_id)
+      params.first[:flavor] = flavor
       self.send("ar_build_#{association_id}", *params)
     end
   end
