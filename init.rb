@@ -1,6 +1,6 @@
 module UnifiedAttachmentAssociationMethods
   def generate_flavor(association_id)
-    "#{self.class.name}_#{association_id.to_s}"
+    "#{self.name}_#{association_id.to_s}"
   end
   
   def has_one_unified_attachment(association_id, options = {})
