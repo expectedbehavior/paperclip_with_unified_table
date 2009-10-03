@@ -65,8 +65,6 @@ module UnifiedAttachmentAssociationMethods
     end
       
     define_method("#{association_id}=") do |*params|
-      debugger
-
       unless params.first.kind_of?(UnifiedUpload)
         params[0] = UnifiedUpload.new(:content => params[0])
       end
