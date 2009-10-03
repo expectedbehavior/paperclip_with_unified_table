@@ -31,8 +31,8 @@ Copyright (c) 2009 [name of plugin creator], released under the MIT license
 
 # should have the default table name be configurable
 # don't really need to namespace the 'flavor' column; it's already polymorphic
-# don't need to override has_one since we just made our own pretty method
 # auto-generate the migration for the One True Table
 # need to reflect to override the associations
 # should require validation of flavor; we could even make sure it's one of the indicated flavors
   by tracking associations
+# assumes the existance of the UnifiedUpload class

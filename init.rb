@@ -65,6 +65,9 @@ module UnifiedAttachmentAssociationMethods
     end
       
     define_method("#{association_id}=") do |*params|
+      if(params.first.class == File)
+        params[0] = UnifiedUpload.new(:content => params[0])
+      end
       params.first.flavor = flavor
       self.send("ar_#{association_id}=", *params)
     end
